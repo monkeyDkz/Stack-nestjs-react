@@ -1,0 +1,55 @@
+### Create a new user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Login user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Set variables manually
+@user_id = 01965d93-bf43-7389-a7ff-593df7e3a69f
+@jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZXhhbXBsZS5jb20iLCJzdWIiOiIwMTk2NWQ5My1iZjQzLTczODktYTdmZi01OTNkZjdlM2E2OWYiLCJpYXQiOjE3NDUzMjY4MTAsImV4cCI6MTc0NjYyMjgxMH0.ic3XQP7XO09I8A9K3dfZgNGwaATThj0bvfPZ98buWSk
+
+### Get user profile (protected route)
+GET http://localhost:3000/profile
+Authorization: Bearer {{jwt_token}}
+
+### Update user
+PATCH http://localhost:3000/users/{{user_id}}
+Content-Type: application/json
+
+{
+  "firstname": "Johnny",
+  "lastname": "Doe"
+}
+
+### Delete user
+DELETE http://localhost:3000/users/{{user_id}}
+
+### Get all users
+GET http://localhost:3000/users
+
+### User Register 
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "firstname": "Test",
+  "lastname": "1",
+  "email": "test2555@eemi.com",
+  "password": "password"
+}
+
+
