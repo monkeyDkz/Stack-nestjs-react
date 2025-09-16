@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # Service PostgreSQL
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -15,12 +14,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # Service Backend NestJS
-  backend:
+  api:
     build:
-      context: ./backend
+      context: ./apps/api
       dockerfile: Dockerfile
-    container_name: backend
+    container_name: api
     restart: always
     ports:
       - "3000:3000"
@@ -30,23 +28,22 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./backend:/app:rw
+      - ./apps/api:/app:rw
       - /app/node_modules
 
-  # Service Frontend Vite+React
-  frontend:
+  web:
     build:
-      context: ./frontend
+      context: ./apps/web
       dockerfile: Dockerfile
-    container_name: frontend
+    container_name: web
     restart: always
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
+      - ./apps/web:/app
       - /app/node_modules
     depends_on:
-      - backend
+      - api
 
 volumes:
   postgres_data:
